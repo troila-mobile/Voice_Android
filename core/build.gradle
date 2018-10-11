@@ -8,9 +8,6 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        ndk {
-            abiFilters  "armeabi-v7a" ,"armeabi"  // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
-        }
     }
 
     buildTypes {
@@ -21,7 +18,6 @@ android {
     }
     packagingOptions{
         doNotStrip "*/*/libvad.dnn.so"
-        doNotStrip "*/*/libbd_easr_s1_merge_normal_20151216.dat.so"
     }
 }
 
@@ -31,6 +27,4 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.github.adrielcafe:ffmpeg-android-java:2a627f6ecd@aar'
-
-
 }

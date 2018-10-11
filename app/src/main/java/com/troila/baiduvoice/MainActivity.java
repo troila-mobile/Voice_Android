@@ -80,14 +80,38 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                start(samplePath+"/16k_test.mp3");
+                start(samplePath+"/test1.mp3");
             }
         });
         (findViewById(R.id.btn1)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vibrator vibrator = (Vibrator)getSystemService(MainActivity.this.VIBRATOR_SERVICE);
-                vibrator.vibrate(500);
+                AndroidAudioConverter.with(MainActivity.this)
+                        // Your current audio file
+                        .setFile(new File(samplePath+"/test1.pcm"))
+
+                        // Your desired audio format
+                        .setFormat(AudioFormat.MP3)
+
+                        // An callback to know when conversion is finished
+                        .setCallback(new IConvertCallback() {
+                            @Override
+                            public void onSuccess(File convertedFile) {
+
+                            }
+
+                            @Override
+                            public void onFailure(Exception error) {
+
+                            }
+                        })
+
+                        // Start conversion
+                        .convert();
+
+
+//                Vibrator vibrator = (Vibrator)getSystemService(MainActivity.this.VIBRATOR_SERVICE);
+//                vibrator.vibrate(500);
             }
         });
 

@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 public class AutoCheck {
-    public static final boolean isOnlineLited = false; // 是否只需要是纯在线识别功能
+    public static final boolean isOnlineLited = true; // 是否只需要是纯在线识别功能
     private LinkedHashMap<String, Check> checks;
 
     private Context context;

@@ -96,11 +96,15 @@ public class AndroidAudioConverter {
         }
         final String[] cmd;
         final File convertedFile = getConvertedFile(audioFile, format);
-        if ("pcm".equals(format.getFormat())) {
+        if (AudioFormat.PCM.getFormat().equals(format.getFormat())) {
             //ffmpeg -y  -i aidemo.mp3  -acodec pcm_s16le -f s16le -ac 1 -ar 16000 16k.pcm
             cmd = new String[]{"-y", "-i", audioFile.getPath(),"-acodec","pcm_s16le","-f","s16le","-ac","1","-ar","16000", convertedFile.getPath()};
-        } else {
-             cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
+        } else if(AudioFormat.PCM.getFormat().equals(format.getFormat())){
+//             cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
+             //-f s16le -ac 1 -ar 16000 -i 8k.pcm 8k.mp3
+             cmd = new String[]{"-f","s16le","-ac","1","-ar","16000","-i",audioFile.getPath(), convertedFile.getPath()};
+        }else {
+            cmd = new String[]{"-y", "-i", audioFile.getPath(), convertedFile.getPath()};
         }
         try {
             FFmpeg.getInstance(context).execute(cmd, new FFmpegExecuteResponseHandler() {
