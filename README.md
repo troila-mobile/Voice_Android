@@ -62,7 +62,46 @@ repositories {
 }
 
 dependencies {
-  compile ''
-}
+	       implementation 'com.github.troila-mobile:Voice_Android:master-SNAPSHOT'
+	}
 ```
+## 语音转文字
+1 - init
+```
+
+ResultRecogListener listener = new ResultRecogListener();
+        listener.setFinalLitener(new IResultRecogListener() {
+            @Override
+            public void onFinalResult(String result) {
+
+            }
+
+            @Override
+            public void onEnd() {
+
+            }
+        });
+     MyRecognizer   myRecognizer = new MyRecognizer(this, listener);
+```
+2 conversion
+```
+   Map<String, Object> params = new HashMap<>();
+            params.put(SpeechConstant.IN_FILE, convertedFile.getPath());
+            (new AutoCheck(getApplicationContext(), new Handler() {
+                public void handleMessage(Message msg) {
+                    if (msg.what == 100) {
+                        AutoCheck autoCheck = (AutoCheck) msg.obj;
+                        synchronized (autoCheck) {
+                            String message = autoCheck.obtainErrorMessage(); // autoCheck.obtainAllMessage();
+
+//                        ; // 可以用下面一行替代，在logcat中查看代码
+                            Log.w("AutoCheckMessage", message + "\n");
+                        }
+                    }
+                }
+            }, false)).checkAsr(params);
+
+            myRecognizer.start(params);
+```
+
 
