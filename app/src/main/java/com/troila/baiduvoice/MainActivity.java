@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,6 +81,13 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
             @Override
             public void onClick(View v) {
                 start(samplePath+"/16k_test.mp3");
+            }
+        });
+        (findViewById(R.id.btn1)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator vibrator = (Vibrator)getSystemService(MainActivity.this.VIBRATOR_SERVICE);
+                vibrator.vibrate(500);
             }
         });
 

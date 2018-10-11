@@ -8,6 +8,9 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        ndk {
+            abiFilters  "armeabi-v7a" ,"armeabi"  // 指定要ndk需要兼容的架构(这样其他依赖包里mips,x86,armeabi,arm-v8之类的so会被过滤掉)
+        }
     }
 
     buildTypes {
