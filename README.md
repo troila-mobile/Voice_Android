@@ -73,11 +73,12 @@ ResultRecogListener listener = new ResultRecogListener();
         listener.setFinalLitener(new IResultRecogListener() {
             @Override
             public void onFinalResult(String result) {
-
+		//最终结果
             }
 
             @Override
             public void onEnd() {
+	    //识别结束
 
             }
         });
