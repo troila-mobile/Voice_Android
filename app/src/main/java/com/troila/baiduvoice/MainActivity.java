@@ -16,6 +16,7 @@ import com.baidu.aip.asrwakeup3.core.recog.MyRecognizer;
 import com.baidu.aip.asrwakeup3.core.recog.listener.IResultRecogListener;
 import com.baidu.aip.asrwakeup3.core.recog.listener.ResultRecogListener;
 import com.baidu.aip.asrwakeup3.core.util.FileUtil;
+import com.baidu.aip.asrwakeup3.core.util.RecorderUtil;
 import com.baidu.speech.asr.SpeechConstant;
 import com.baidu.aip.asrwakeup3.core.conversion.AndroidAudioConverter;
 import com.baidu.aip.asrwakeup3.core.conversion.callback.IConvertCallback;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
             // Oops! Something went wrong
         }
     };
+    private RecorderUtil recorderUtil;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                start(samplePath+"/test1.mp3");
+                start(samplePath+"/abc.mp3");
             }
         });
         (findViewById(R.id.btn1)).setOnClickListener(new View.OnClickListener() {
@@ -88,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
             public void onClick(View v) {
                 AndroidAudioConverter.with(MainActivity.this)
                         // Your current audio file
-                        .setFile(new File(samplePath+"/test1.pcm"))
+                        .setFile(new File(samplePath+"/abc.aac"))
 
                         // Your desired audio format
                         .setFormat(AudioFormat.MP3)
@@ -112,6 +115,19 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
 
 //                Vibrator vibrator = (Vibrator)getSystemService(MainActivity.this.VIBRATOR_SERVICE);
 //                vibrator.vibrate(500);
+            }
+        });
+        findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recorderUtil = new RecorderUtil(samplePath + "/abc.aac");
+                recorderUtil.startRecording();
+            }
+        });
+        findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recorderUtil.stopRecording();
             }
         });
 

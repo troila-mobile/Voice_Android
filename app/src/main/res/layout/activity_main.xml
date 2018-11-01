@@ -20,6 +20,18 @@
         android:layout_height="wrap_content"
         android:text="pcm转wav"
          />
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始录音"
+         />
+    <Button
+        android:id="@+id/btn3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止录音"
+         />
 
     <TextView
         android:id="@+id/tv"
