@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.baidu.aip.asrwakeup3.core.inputstream.MyMicrophoneInputStream;
 import com.baidu.aip.asrwakeup3.core.mini.AutoCheck;
 import com.baidu.aip.asrwakeup3.core.recog.MyRecognizer;
 import com.baidu.aip.asrwakeup3.core.recog.listener.IResultRecogListener;
@@ -23,6 +25,7 @@ import com.baidu.aip.asrwakeup3.core.conversion.callback.IConvertCallback;
 import com.baidu.aip.asrwakeup3.core.conversion.model.AudioFormat;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
         }
     };
     private RecorderUtil recorderUtil;
+    private MyMicrophoneInputStream mmis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,14 +124,21 @@ public class MainActivity extends AppCompatActivity implements IResultRecogListe
         findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recorderUtil = new RecorderUtil(samplePath + "/abc.aac");
-                recorderUtil.startRecording();
+                mmis = new MyMicrophoneInputStream();
+                mmis.start();
+                mmis.writeToFlie(samplePath+"/1234.pcm");
+//                recorderUtil = new RecorderUtil(samplePath + "/abc.aac");
+//                recorderUtil.startRecording();
             }
         });
         findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recorderUtil.stopRecording();
+                try {
+                    mmis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
